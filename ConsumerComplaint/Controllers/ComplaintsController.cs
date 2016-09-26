@@ -15,12 +15,21 @@ namespace ConsumerComplaints.API.Controllers
 {
     public class ComplaintsController : ApiController
     {
-        private ComplaintModel db = new ComplaintModel();
+        private IComplaintContext db = new ComplaintContext();
+
+        public ComplaintsController()
+        {
+
+        }
+        public ComplaintsController(IComplaintContext context)
+        {
+            db = context;
+        }
 
         // GET: api/Complaints
         public IQueryable<ConsumerComplaint> GetConsumerComplaints()
         {
-            return db.ConsumerComplaints;
+            return db.ConsumerComplaints.Take(10);
         }
 
         // GET: api/Complaints/5
@@ -38,6 +47,7 @@ namespace ConsumerComplaints.API.Controllers
 
         // PUT: api/Complaints/5
         [ResponseType(typeof(void))]
+        [Authorize]
         public async Task<IHttpActionResult> PutConsumerComplaint(long id, ConsumerComplaint consumerComplaint)
         {
             if (!ModelState.IsValid)
@@ -50,7 +60,7 @@ namespace ConsumerComplaints.API.Controllers
                 return BadRequest();
             }
 
-            db.Entry(consumerComplaint).State = EntityState.Modified;
+            db.MarkAsModified(consumerComplaint);
 
             try
             {
@@ -73,6 +83,7 @@ namespace ConsumerComplaints.API.Controllers
 
         // POST: api/Complaints
         [ResponseType(typeof(ConsumerComplaint))]
+        [Authorize]
         public async Task<IHttpActionResult> PostConsumerComplaint(ConsumerComplaint consumerComplaint)
         {
             if (!ModelState.IsValid)
@@ -103,6 +114,7 @@ namespace ConsumerComplaints.API.Controllers
 
         // DELETE: api/Complaints/5
         [ResponseType(typeof(ConsumerComplaint))]
+        [Authorize]
         public async Task<IHttpActionResult> DeleteConsumerComplaint(long id)
         {
             ConsumerComplaint consumerComplaint = await db.ConsumerComplaints.FindAsync(id);

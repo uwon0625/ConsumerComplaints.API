@@ -32,7 +32,7 @@ namespace ConsumerComplaints.API.Migrations
             {
                 new Client
                 { Id = "AuthApp", 
-                    Secret= Helper.GetHash("abc@123"), 
+                    Secret= Helper.GetHash("gogo248"), 
                     Name="Consumer Complaint front-end Application", 
                     ApplicationType =  Models.ApplicationTypes.JavaScript, 
                     Active = true, 
@@ -41,7 +41,7 @@ namespace ConsumerComplaints.API.Migrations
                 },
                 new Client
                 { Id = "consoleApp", 
-                    Secret=Helper.GetHash("123@abc"), 
+                    Secret=Helper.GetHash("yaya135"), 
                     Name="Console Application", 
                     ApplicationType =Models.ApplicationTypes.NativeConfidential, 
                     Active = true, 

@@ -2,17 +2,25 @@ namespace ConsumerComplaints.API.Models
 {
     using System;
     using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
+    using System.Threading.Tasks;
 
-    public partial class ComplaintModel : DbContext
+    public partial class ComplaintContext : DbContext, IComplaintContext
     {
-        public ComplaintModel()
-            : base("name=ComplaintModel")
+        public ComplaintContext()
+            : base("name=ComplaintContext")
         {
+        }
+        Task<int> IComplaintContext.SaveChangesAsync()
+        {
+            return base.SaveChangesAsync();
         }
 
         public virtual DbSet<ConsumerComplaint> ConsumerComplaints { get; set; }
+
+        public void MarkAsModified(ConsumerComplaint item)
+        {
+            Entry(item).State = EntityState.Modified;
+        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -76,5 +84,6 @@ namespace ConsumerComplaints.API.Models
                 .Property(e => e.ConsumerDisputed)
                 .IsUnicode(false);
         }
+
     }
 }
