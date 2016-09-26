@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace ConsumerComplaint.API.Models
+namespace ConsumerComplaints.API.Models
 {
     public class ExternalLoginViewModel
     {

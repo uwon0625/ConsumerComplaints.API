@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Web;
 
-namespace ConsumerComplaint.API
+namespace ConsumerComplaints.API
 {
     public class Helper
     {

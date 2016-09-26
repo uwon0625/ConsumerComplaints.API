@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace ConsumerComplaint.API.Entities
+namespace ConsumerComplaints.API.Entities
 {
     public class RefreshToken
     {

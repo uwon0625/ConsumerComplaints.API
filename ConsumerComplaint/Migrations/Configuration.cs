@@ -1,20 +1,20 @@
-namespace ConsumerComplaint.API.Migrations
+namespace ConsumerComplaints.API.Migrations
 {
-    using ConsumerComplaint.API.Entities;
+    using ConsumerComplaints.API.Entities;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ConsumerComplaint.API.AuthContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ConsumerComplaints.API.AuthContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(ConsumerComplaint.API.AuthContext context)
+        protected override void Seed(ConsumerComplaints.API.AuthContext context)
         {
             if (context.Clients.Count() > 0)
             {

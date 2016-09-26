@@ -1,4 +1,4 @@
-﻿using ConsumerComplaint.API.Providers;
+﻿using ConsumerComplaints.API.Providers;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Facebook;
 using Microsoft.Owin.Security.Google;
@@ -11,9 +11,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 
-[assembly: OwinStartup(typeof(ConsumerComplaint.API.Startup))]
+[assembly: OwinStartup(typeof(ConsumerComplaints.API.Startup))]
 
-namespace ConsumerComplaint.API
+namespace ConsumerComplaints.API
 {
     public class Startup
     {
@@ -30,7 +30,7 @@ namespace ConsumerComplaint.API
             WebApiConfig.Register(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<AuthContext, ConsumerComplaint.API.Migrations.Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<AuthContext, ConsumerComplaints.API.Migrations.Configuration>());
 
         }
 

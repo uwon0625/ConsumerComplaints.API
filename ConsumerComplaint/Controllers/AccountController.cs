@@ -1,5 +1,5 @@
-﻿using ConsumerComplaint.API.Models;
-using ConsumerComplaint.API.Results;
+﻿using ConsumerComplaints.API.Models;
+using ConsumerComplaints.API.Results;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
-namespace ConsumerComplaint.API.Controllers
+namespace ConsumerComplaints.API.Controllers
 {
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController

@@ -1,4 +1,4 @@
-namespace ConsumerComplaint.API.Models
+namespace ConsumerComplaints.API.Models
 {
     using System;
     using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿using ConsumerComplaint.API.Entities;
+﻿using ConsumerComplaints.API.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace ConsumerComplaint.API
+namespace ConsumerComplaints.API
 {
     public class AuthContext : IdentityDbContext<IdentityUser>
     {

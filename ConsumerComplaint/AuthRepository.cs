@@ -1,5 +1,5 @@
-﻿using ConsumerComplaint.API.Entities;
-using ConsumerComplaint.API.Models;
+﻿using ConsumerComplaints.API.Entities;
+using ConsumerComplaints.API.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
@@ -10,7 +10,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace ConsumerComplaint.API
+namespace ConsumerComplaints.API
 {
 
     public class AuthRepository : IDisposable

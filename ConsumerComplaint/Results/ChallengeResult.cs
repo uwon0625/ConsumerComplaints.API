@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
-namespace ConsumerComplaint.API.Results
+namespace ConsumerComplaints.API.Results
 {
     public class ChallengeResult : IHttpActionResult
     {        

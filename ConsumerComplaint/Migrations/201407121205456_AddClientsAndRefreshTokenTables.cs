@@ -1,4 +1,4 @@
-namespace ConsumerComplaint.API.Migrations
+namespace ConsumerComplaints.API.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;

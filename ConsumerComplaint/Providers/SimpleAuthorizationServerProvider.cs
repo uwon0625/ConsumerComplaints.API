@@ -1,4 +1,4 @@
-﻿using ConsumerComplaint.API.Entities;
+﻿using ConsumerComplaints.API.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
@@ -9,7 +9,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace ConsumerComplaint.API.Providers
+namespace ConsumerComplaints.API.Providers
 {
     public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {

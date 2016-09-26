@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ConsumerComplaint.API.Models
+namespace ConsumerComplaints.API.Models
 {
     public enum ApplicationTypes
     {

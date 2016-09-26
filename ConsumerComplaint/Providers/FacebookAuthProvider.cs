@@ -6,7 +6,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace ConsumerComplaint.API.Providers
+namespace ConsumerComplaints.API.Providers
 {
     public class FacebookAuthProvider : FacebookAuthenticationProvider
     {

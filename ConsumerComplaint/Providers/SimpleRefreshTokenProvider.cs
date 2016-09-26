@@ -1,4 +1,4 @@
-﻿using ConsumerComplaint.API.Entities;
+﻿using ConsumerComplaints.API.Entities;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Infrastructure;
 using System;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace ConsumerComplaint.API.Providers
+namespace ConsumerComplaints.API.Providers
 {
     public class SimpleRefreshTokenProvider : IAuthenticationTokenProvider
     {
