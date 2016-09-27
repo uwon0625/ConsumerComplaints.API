@@ -1,31 +1,68 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ConsumerComplaints.API.Models;
+using System.Collections.Generic;
+using System;
+using System.Web.Http.Routing;
+using System.Web;
+using System.Net.Http;
 
 namespace ConsumerComplaints.API.Controllers
 {
     public class ComplaintsController : ApiController
     {
-        private  readonly IComplaintContext db;
+        private const int maxPageSize = 10;
+        private readonly IComplaintContext db;
 
         public ComplaintsController(IComplaintContext context)
         {
             db = context;
         }
 
-        // GET: api/Complaints
-        public IQueryable<ConsumerComplaint> GetConsumerComplaints()
+        // GET: api/Complaints (all other parameteres are optional)
+        // GET: api/Complaints/companyName/zip/pageSize/pageNumber/orderBy
+        [Route("api/Complaints")]
+        [Route("api/Complaints/{CompanyName}")]
+        [Route("api/Complaints/{CompanyName}/{zip}")]
+        [Route("api/Complaints/{CompanyName}/{zip}/{pageSize}")]
+        [Route("api/Complaints/{CompanyName}/{zip}/{pageSize}/{pageNumber}")]
+        [Route("api/Complaints/{CompanyName}/{zip}/{pageSize}/{pageNumber}/{orderBy}")]
+        public IHttpActionResult GetConsumerComplaints(string companyName="", string zip="", int pageSize = maxPageSize, int pageNumber = 1, string orderBy = "Id")
         {
-            return db.ConsumerComplaints.Take(10);
+            try
+            {
+                var complaints = db.ConsumerComplaints.Where(c => (c.Company == companyName || companyName == "")  && (c.ZIP == zip || zip==""));
+
+                if (complaints == null)
+                {                   
+                    return NotFound();
+                }
+
+                if (pageSize > maxPageSize)
+                {
+                    pageSize = maxPageSize;
+                }
+
+                // calculate data for metadata
+                var totalCount = complaints.Count();
+                var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+
+                var result = complaints
+                    .ApplySort(orderBy)
+                    .Skip(pageSize * (pageNumber - 1))
+                    .Take(pageSize)
+                    .ToList();
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
         }
 
         // GET: api/Complaints/5

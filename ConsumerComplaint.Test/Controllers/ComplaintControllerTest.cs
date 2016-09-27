@@ -50,10 +50,12 @@ namespace ConsumerComplaints.Test.Controllers
 
             //act            
             var result = controller.GetConsumerComplaints();
+            
+            var data = result as OkNegotiatedContentResult<List<ConsumerComplaint>>;
 
             //assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(5, (result as IQueryable<ConsumerComplaint>).Count());
+            Assert.AreEqual(5, data.Content.Count());
         }
         [TestMethod]
         public void GetConsumerComplaint_ShouldReturnComplaintWithValidId()

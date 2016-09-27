@@ -26,9 +26,6 @@ namespace ConsumerComplaints.API.Controllers
             get { return Request.GetOwinContext().Authentication; }
         }
 
-        public AccountController()
-        {
-        }
         public AccountController(IAuthRepository repo)
         {
             _repo = repo;

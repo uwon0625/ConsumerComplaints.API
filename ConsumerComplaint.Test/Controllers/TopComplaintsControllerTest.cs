@@ -58,7 +58,6 @@ namespace ConsumerComplaints.Test.Controllers
             //act
             var data = controller.GetTopConsumerComplaints("-1");
 
-            // var result = data as OkNegotiatedContentResult<IQueryable<TopComplaints>>;
             var result = data as OkNegotiatedContentResult<List<TopComplaints>>;
 
             //assert

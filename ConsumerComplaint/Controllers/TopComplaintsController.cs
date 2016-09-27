@@ -12,10 +12,6 @@ namespace ConsumerComplaints.API.Controllers
         private const int maxPageSize = 10;
         private readonly IComplaintContext db;
 
-        public TopComplaintsController()
-        {
-
-        }
         public TopComplaintsController(IComplaintContext context)
         {
             db = context;

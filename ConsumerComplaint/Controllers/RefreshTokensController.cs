@@ -6,12 +6,11 @@ namespace ConsumerComplaints.API.Controllers
     [RoutePrefix("api/RefreshTokens")]
     public class RefreshTokensController : ApiController
     {
+        private readonly IAuthRepository _repo;
 
-        private AuthRepository _repo = null;
-
-        public RefreshTokensController()
+        public RefreshTokensController(IAuthRepository repo)
         {
-            _repo = new AuthRepository();
+            _repo = repo;
         }
 
         [Authorize(Users="Admin")]

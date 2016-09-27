@@ -22,10 +22,16 @@ namespace ConsumerComplaints.API
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            //unity Ioc
             var container = UnityConfig.RegisterComponents();
             config.DependencyResolver = new UnityResolver(container);
+
             var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            config.Formatters.JsonFormatter.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
+
+            // configure caching
+            config.MessageHandlers.Add(new CacheCow.Server.CachingHandler(config));
         }
     }
 }
