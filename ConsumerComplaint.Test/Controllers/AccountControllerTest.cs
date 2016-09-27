@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ConsumerComplaint.Test.Controllers
+namespace ConsumerComplaints.Test.Controllers
 {
     [TestClass]
     public class AccountControllerTest

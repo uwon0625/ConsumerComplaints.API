@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumerComplaints.API", "ConsumerComplaint\ConsumerComplaints.API.csproj", "{23DFCFD5-B158-4C0D-9C31-5E9CB64C64CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumerComplaint.Test", "ConsumerComplaint.Test\ConsumerComplaint.Test.csproj", "{EDDF9C1C-C4A9-43F1-AEE1-57E837472B7E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumerComplaints.Test", "ConsumerComplaint.Test\ConsumerComplaints.Test.csproj", "{EDDF9C1C-C4A9-43F1-AEE1-57E837472B7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

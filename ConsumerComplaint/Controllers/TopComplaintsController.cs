@@ -33,16 +33,16 @@ namespace ConsumerComplaints.API.Controllers
                 .OrderByDescending(c => c.Count);
         }
 
-        // GET: api/TopComplaints/{zip}
+        // GET: api/TopComplaints/33071
         [ResponseType(typeof(TopComplaints))]
         [Route("api/TopComplaints/{zip}", Name = "TopComplaints")]
-        public async Task<IHttpActionResult> GetConsumerComplaint(string zip)
+        public IHttpActionResult GetTopConsumerComplaints(string zip)
         {
             var query = from c in db.ConsumerComplaints
                         where c.ZIP.Equals(zip, System.StringComparison.InvariantCultureIgnoreCase)
                         group c by c.Company into g
                         select new TopComplaints { Name = g.Key, Count = g.Count() };
-            var data = await query.OrderByDescending(c => c.Count).ToListAsync();
+            var data = query.OrderByDescending(c => c.Count).ToList();
             if (data == null)
             {
                 return NotFound();
