@@ -2,18 +2,14 @@
 using ConsumerComplaints.API.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.Owin.Security;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace ConsumerComplaints.API
 {
 
-    public class AuthRepository : IDisposable
+    public class AuthRepository: IAuthRepository
     {
         private AuthContext _ctx;
 
@@ -115,6 +111,16 @@ namespace ConsumerComplaints.API
             var result = await _userManager.AddLoginAsync(userId, login);
 
             return result;
+        }
+
+        public bool RemoveUser(string username, string password)
+        {
+            var user = FindUser(username, password).Result;
+            if (user != null)
+            {
+                return _userManager.Delete(user) == IdentityResult.Success;
+            }
+            return false;
         }
 
         public void Dispose()

@@ -19,7 +19,7 @@ namespace ConsumerComplaints.API.Controllers
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
-        private AuthRepository _repo = null;
+        private readonly IAuthRepository _repo;
 
         private IAuthenticationManager Authentication
         {
@@ -28,7 +28,10 @@ namespace ConsumerComplaints.API.Controllers
 
         public AccountController()
         {
-            _repo = new AuthRepository();
+        }
+        public AccountController(IAuthRepository repo)
+        {
+            _repo = repo;
         }
 
         // POST api/Account/Register
@@ -204,6 +207,10 @@ namespace ConsumerComplaints.API.Controllers
 
         #region Helpers
 
+        public void RemoveUser(string username, string password)
+        {
+            _repo.RemoveUser(username, password);
+        }
         private IHttpActionResult GetErrorResult(IdentityResult result)
         {
             if (result == null)

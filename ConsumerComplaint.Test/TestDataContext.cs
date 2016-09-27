@@ -3,6 +3,8 @@ using System.Data.Entity;
 using ConsumerComplaints.API.Models;
 using System;
 using System.Threading.Tasks;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace ConsumerComplaints.Test
 {
@@ -14,7 +16,7 @@ namespace ConsumerComplaints.Test
             this.ConsumerComplaints = new TestComplaintsDbSet();
         }
 
-        public DbSet<ConsumerComplaint> ConsumerComplaints { get; set; }
+        public IDbSet<ConsumerComplaint> ConsumerComplaints { get; set; }
 
         public int SaveChanges()
         {
@@ -25,6 +27,11 @@ namespace ConsumerComplaints.Test
         public void Dispose() { }
 
         public Task<int> SaveChangesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ConsumerComplaint> GetComplaints()
         {
             throw new NotImplementedException();
         }

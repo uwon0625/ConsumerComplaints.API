@@ -1,9 +1,6 @@
 ﻿using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ConsumerComplaints.API.Models;
@@ -13,7 +10,7 @@ namespace ConsumerComplaints.API.Controllers
     public class TopComplaintsController : ApiController
     {
         private const int maxPageSize = 10;
-        private IComplaintContext db = new ComplaintContext();
+        private readonly IComplaintContext db;
 
         public TopComplaintsController()
         {

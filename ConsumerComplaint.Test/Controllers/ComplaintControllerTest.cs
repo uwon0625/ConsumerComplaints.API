@@ -1,36 +1,54 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Web.Http.Results;
 using ConsumerComplaints.API.Controllers;
 using System.Linq;
 using ConsumerComplaints.API.Models;
+using Moq;
+using System.Data.Entity;
+using System.Web.Http.Results;
 
 namespace ConsumerComplaints.Test.Controllers
 {
     [TestClass]
     public class ComplaintControllerTest
     {
-        TestDataContext context;
-        ConsumerComplaint complaintToAdd;
+        Mock<IComplaintContext> mock;
+        ComplaintsController controller;
+        Mock<IDbSet<ConsumerComplaint>> dbSetMock;
+
+        ConsumerComplaint complaintToAdd = new ConsumerComplaint { Id = 14, DateReceived = DateTime.Parse("1/1/2012"), Company = "ABC", Product = "Loan", ZIP = "93551" };
+        IEnumerable<ConsumerComplaint> complaints = new List<ConsumerComplaint> {
+                new ConsumerComplaint { Id = 3, DateReceived =DateTime.Parse("1/1/2012"), Company="ABC", Product="Loan", ZIP= "93551"},
+                new ConsumerComplaint { Id = 6, DateReceived =DateTime.Parse("1/21/2012"), Company="ABC", Product="Loan", ZIP= "93551"},
+                new ConsumerComplaint { Id = 9, DateReceived =DateTime.Parse("12/1/2012"), Company="DEF", Product="Loan", ZIP= "93551"},
+                new ConsumerComplaint { Id = 8, DateReceived =DateTime.Parse("1/1/2012"), Company="DEF", Product="Loan2", ZIP= "33055"},
+                new ConsumerComplaint { Id = 123, DateReceived =DateTime.Parse("11/11/2012"), Company="GHI", Product="Loan3", ZIP= "44222"}
+            };
+        // Convert the IEnumerable list to an IQueryable list
+        IQueryable<ConsumerComplaint> queryableList;
 
         [TestInitialize]
         public void Initialize()
         {
-            context = new TestDataContext();
-            foreach (var c in GetDemoComplaints())
-                context.ConsumerComplaints.Add(c);
+            queryableList = complaints.AsQueryable();
+            dbSetMock = new Mock<IDbSet<ConsumerComplaint>>();
+            dbSetMock.Setup(m => m.Provider).Returns(queryableList.Provider);
+            dbSetMock.Setup(m => m.Expression).Returns(queryableList.Expression);
+            dbSetMock.Setup(m => m.ElementType).Returns(queryableList.ElementType);
+            dbSetMock.Setup(m => m.GetEnumerator()).Returns(queryableList.GetEnumerator());
 
-            complaintToAdd = new ConsumerComplaint { Id = 14, DateReceived = DateTime.Parse("1/1/2012"), Company = "ABC", Product = "Loan", ZIP = "93551" };
+            mock = new Mock<IComplaintContext>();
+            mock.Setup(c => c.ConsumerComplaints).Returns(dbSetMock.Object);
+            controller = new ComplaintsController(mock.Object);           
         }
 
         [TestMethod]
-        public void GetConsumerComplaints_ShouldReturnGroupedComplaints()
+        public void GetConsumerComplaints_ShouldReturnComplaints()
         {
             //arrange
 
-            //act
-            var controller = new ComplaintsController(context);
+            //act            
             var result = controller.GetConsumerComplaints();
 
             //assert
@@ -38,81 +56,40 @@ namespace ConsumerComplaints.Test.Controllers
             Assert.AreEqual(5, (result as IQueryable<ConsumerComplaint>).Count());
         }
         [TestMethod]
-        public void GetConsumerComplaints_ShouldReturnGroupedComplaintsWithValidId()
+        public void GetConsumerComplaint_ShouldReturnComplaintWithValidId()
         {
             //arrange
 
             //act
-            var controller = new ComplaintsController(context);
-            var data = controller.GetConsumerComplaint(6);
-
-            // var result = data as OkNegotiatedContentResult<IQueryable<TopComplaints>>;
-            var result = data.Result;// as OkNegotiatedContentResult<ConsumerComplaint>;
+            var result = controller.GetConsumerComplaint(6) as OkNegotiatedContentResult<ConsumerComplaint>;
 
             //assert
             Assert.IsNotNull(result);
-            //Assert.AreEqual(2, result.Content.Count());
+            Assert.AreEqual(6, result.Content.Id);
         }
 
         [TestMethod]
-        public void GetTopConsumerComplaints_ShouldReturnNoDataWithInalidId()
+        public void GetConsumerComplaint_ShouldReturnNoDataWithInalidId()
         {
             //arrange
 
             //act
-            var controller = new ComplaintsController(context);
-            var data = controller.GetConsumerComplaint(-1);
-
-            // var result = data as OkNegotiatedContentResult<IQueryable<TopComplaints>>;
-            var result = data;// as OkNegotiatedContentResult<ConsumerComplaint>;
+            var result = controller.GetConsumerComplaint(-1) as OkNegotiatedContentResult<ConsumerComplaint>;
 
             //assert
-            Assert.IsNotNull(result);
-            // Assert.AreEqual(0, result.Content.Count());
+            Assert.IsNull(result);
         }
 
         [TestMethod]
-        public void PutConsumerComplaints_ShouldAddComplaintWithValidData()
+        public void PostConsumerComplaint_ShouldAddComplaintWithValidData()
         {
             //arrange
 
             //act
-            var controller = new ComplaintsController(context);
-            var data = controller.PostConsumerComplaint(complaintToAdd);
-
-            // var result = data as OkNegotiatedContentResult<IQueryable<TopComplaints>>;
-            var result = data;// as OkNegotiatedContentResult<ConsumerComplaint>;
+            controller.PostConsumerComplaint(complaintToAdd).Wait();
 
             //assert
-            Assert.IsNotNull(result);
-            //Assert.AreEqual(2, result.Content.Count());
-        }
-
-        public void PutConsumerComplaints_ShouldFailWhenNotAuthorized()
-        {
-            //arrange
-
-            //act
-            var controller = new ComplaintsController(context);
-            var data = controller.PostConsumerComplaint(complaintToAdd);
-
-            // var result = data as OkNegotiatedContentResult<IQueryable<TopComplaints>>;
-            var result = data;// as OkNegotiatedContentResult<ConsumerComplaint>;
-
-            //assert
-            Assert.IsNotNull(result);
-            //Assert.AreEqual(2, result.Content.Count());
-        }
-
-        private List<ConsumerComplaint> GetDemoComplaints()
-        {
-            return new List<ConsumerComplaint> {
-                new ConsumerComplaint { Id = 3, DateReceived =DateTime.Parse("1/1/2012"), Company="ABC", Product="Loan", ZIP= "93551"},
-                new ConsumerComplaint { Id = 6, DateReceived =DateTime.Parse("1/21/2012"), Company="ABC", Product="Loan", ZIP= "93551"},
-                new ConsumerComplaint { Id = 9, DateReceived =DateTime.Parse("12/1/2012"), Company="DEF", Product="Loan", ZIP= "93551"},
-                new ConsumerComplaint { Id = 8, DateReceived =DateTime.Parse("1/1/2012"), Company="DEF", Product="Loan2", ZIP= "33055"},
-                new ConsumerComplaint { Id = 123, DateReceived =DateTime.Parse("11/11/2012"), Company="GHI", Product="Loan3", ZIP= "44222"}
-            };
+            // Exception will be thrown if failed
         }
     }
 }

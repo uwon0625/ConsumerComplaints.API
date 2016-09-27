@@ -12,6 +12,7 @@ namespace ConsumerComplaints.Test.Controllers
     public class TopComplaintsControllerTest
     {
         TestDataContext context;
+        TopComplaintsController controller;
 
         [TestInitialize]
         public void Initialize()
@@ -19,6 +20,7 @@ namespace ConsumerComplaints.Test.Controllers
             context = new TestDataContext();
             foreach (var c in GetDemoComplaints())
                 context.ConsumerComplaints.Add(c);
+            controller = new TopComplaintsController(context);
         }
 
         [TestMethod]
@@ -27,7 +29,6 @@ namespace ConsumerComplaints.Test.Controllers
             //arrange
 
             //act
-            var controller = new TopComplaintsController(context);
             var result = controller.GetTopConsumerComplaints();
 
             //assert
@@ -40,10 +41,8 @@ namespace ConsumerComplaints.Test.Controllers
             //arrange
 
             //act
-            var controller = new TopComplaintsController(context);
             var data = controller.GetTopConsumerComplaints("93551");
 
-            // var result = data as OkNegotiatedContentResult<IQueryable<TopComplaints>>;
             var result = data as OkNegotiatedContentResult<List<TopComplaints>>;
 
             //assert
@@ -57,7 +56,6 @@ namespace ConsumerComplaints.Test.Controllers
             //arrange
 
             //act
-            var controller = new TopComplaintsController(context);
             var data = controller.GetTopConsumerComplaints("-1");
 
             // var result = data as OkNegotiatedContentResult<IQueryable<TopComplaints>>;

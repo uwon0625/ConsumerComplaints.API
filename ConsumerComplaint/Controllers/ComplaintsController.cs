@@ -15,12 +15,8 @@ namespace ConsumerComplaints.API.Controllers
 {
     public class ComplaintsController : ApiController
     {
-        private IComplaintContext db = new ComplaintContext();
+        private  readonly IComplaintContext db;
 
-        public ComplaintsController()
-        {
-
-        }
         public ComplaintsController(IComplaintContext context)
         {
             db = context;
@@ -34,9 +30,9 @@ namespace ConsumerComplaints.API.Controllers
 
         // GET: api/Complaints/5
         [ResponseType(typeof(ConsumerComplaint))]
-        public async Task<IHttpActionResult> GetConsumerComplaint(long id)
+        public IHttpActionResult GetConsumerComplaint(long id)
         {
-            ConsumerComplaint consumerComplaint = await db.ConsumerComplaints.FindAsync(id);
+            ConsumerComplaint consumerComplaint =  db.ConsumerComplaints.FirstOrDefault(c => c.Id == id);
             if (consumerComplaint == null)
             {
                 return NotFound();
@@ -83,7 +79,7 @@ namespace ConsumerComplaints.API.Controllers
 
         // POST: api/Complaints
         [ResponseType(typeof(ConsumerComplaint))]
-        [Authorize]
+        //[Authorize]
         public async Task<IHttpActionResult> PostConsumerComplaint(ConsumerComplaint consumerComplaint)
         {
             if (!ModelState.IsValid)
@@ -115,16 +111,16 @@ namespace ConsumerComplaints.API.Controllers
         // DELETE: api/Complaints/5
         [ResponseType(typeof(ConsumerComplaint))]
         [Authorize]
-        public async Task<IHttpActionResult> DeleteConsumerComplaint(long id)
+        public IHttpActionResult DeleteConsumerComplaint(long id)
         {
-            ConsumerComplaint consumerComplaint = await db.ConsumerComplaints.FindAsync(id);
+            ConsumerComplaint consumerComplaint =  db.ConsumerComplaints.Find(id);
             if (consumerComplaint == null)
             {
                 return NotFound();
             }
 
             db.ConsumerComplaints.Remove(consumerComplaint);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
 
             return Ok(consumerComplaint);
         }

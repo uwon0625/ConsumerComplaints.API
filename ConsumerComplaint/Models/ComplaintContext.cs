@@ -1,7 +1,9 @@
 namespace ConsumerComplaints.API.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
+    using System.Linq;
     using System.Threading.Tasks;
 
     public partial class ComplaintContext : DbContext, IComplaintContext
@@ -15,7 +17,7 @@ namespace ConsumerComplaints.API.Models
             return base.SaveChangesAsync();
         }
 
-        public virtual DbSet<ConsumerComplaint> ConsumerComplaints { get; set; }
+        public virtual IDbSet<ConsumerComplaint> ConsumerComplaints { get; set; }
 
         public void MarkAsModified(ConsumerComplaint item)
         {
