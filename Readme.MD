@@ -11,14 +11,22 @@ Facebook and Google Auth Provider<br/>
 
 <br/>
 <b>Main features:</b><br/>
-1. GET api/Complaints: List 10 of the Complaints records, will do paging later;<br/>
-2. GET api/Complaints/5: List individual Complaint record by Id;<br/>
-3. PUT: api/Complaints/{id} with Complaint Data;<br/>
-4. POST: api/Complaint  with Complaint Data;<br/>
-5. DELETE: api/Complaints/{id}<br/>
-6. GET: api/TopComplaints: List 10 of the grouped(by Company Name) Complaints records, will do paging later;<br/>
-7. GET: api/TopComplaints/{zip}: List 10 of the grouped(by Company Name) Complaints records filtered by the zip code, will do paging later;<br/>
+1. GET api/Complaints: List 10 of the Complaints records, see details below;<br/>
+2. GET api/Complaints/{id}: List individual Complaint record by Id;<br/>
+3. PUT api/Complaints/{id}: with Complaint Data;<br/>
+4. POST api/Complaint:  with Complaint Data;<br/>
+5. DELETE api/Complaints/{id}: delete a complaint<br/>
+6. GET api/TopComplaints: List 10 of the grouped(by Company Name) Complaints records, will do paging later;<br/>
+7. GET api/TopComplaints/{zip}: List 10 of the grouped(by Company Name) Complaints records filtered by the zip code, will do paging later;<br/>
 8. Account and Auth APIs... (br/>
+
+<b>GET api/Complaints routing examples: api/Complaints/{CompanyName}/{zip}/{pageSize}/{pageNumber}/{orderBy}</b><br/>
+GET api/Complaints<br/>
+GET api/Complaints/Discover<br/>
+GET api/Complaints/Discover/334XX<br/>
+GET api/Complaints/Discover/334XX/3<br/>
+GET api/Complaints/Discover/334XX/3/3<br/>
+GET api/Complaints/Discover/334XX/3/3/-DateReceived<br/>
 
 <br/>
 <b>Note:</b><br/>
