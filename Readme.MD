@@ -32,3 +32,7 @@ GET api/Complaints/Discover/334XX/3/3/-DateReceived<br/>
 <b>Note:</b><br/>
 1. Some of the functionalities are tested(Unit test, manual test, integration test) while others to be tested.<br/>
 2. The Complaint Id(last column) is rebased when migration with Entity Framework v6.<br/>
+
+<br/>
+<b>Screenshot</b>
+<img src="complaints_screenshot.png"/>
